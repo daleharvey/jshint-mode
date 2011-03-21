@@ -1,3 +1,4 @@
+/*jslint eqeqeq: true */
 /* HTTP interface to JSHint.
 
    curl --form source="<path/to/my.js" --form=filename="my.js" http://127.0.0.1:3003/jshint
@@ -10,6 +11,7 @@
 
 var http = require('http'),
     formidable = require('formidable'),
+    JSLINT = require('./jslint'),
     JSHINT = require('./jshint');
 
 function getOpt(key) {
@@ -23,7 +25,6 @@ function outputErrors(errors) {
 
   function out(s) {
     output.push(s + '\n');
-
   }
 
   for (i = 0; i < errors.length; i += 1) {
@@ -37,13 +38,19 @@ function outputErrors(errors) {
   return output.join('');
 }
 
-function lintify(sourcedata, filename) {
+function lintify(mode, sourcedata, filename) {
 
-  // TODO: parse options from source file
-  var passed = JSHINT.JSHINT(sourcedata, {});
+  var passed;
 
-  return passed ? "jslint: No problems found in " + filename + "\n"
-    : outputErrors(JSHINT.JSHINT.errors);
+  if (mode == "jshint") {
+    passed = JSHINT.JSHINT(sourcedata, {});
+    return passed ? "jshint: No problems found in " + filename + "\n"
+      : outputErrors(JSHINT.JSHINT.errors);
+  } else {
+    passed = JSLINT.JSLINT(sourcedata, {eqeqeq:true});
+    return passed ? "jslint: No problems found in " + filename + "\n"
+      : outputErrors(JSLINT.JSLINT.errors);
+  }
 }
 
 var port = getOpt("--port") || 3003,
@@ -51,11 +58,14 @@ var port = getOpt("--port") || 3003,
 
 http.createServer(function(req, res) {
 
-  if (req.url === '/jshint' && req.method.toUpperCase() === 'POST') {
+  if (req.url === '/check' && req.method.toUpperCase() === 'POST') {
     var form = new formidable.IncomingForm();
     form.parse(req, function(err, fields, files) {
-      console.log('Applying JSHint to: ' + (fields.filename || 'anonymous'));
-      var results = lintify(fields.source, fields.filename);
+      var mode = (fields.mode && fields.mode == "jslint") ? "jslint" : "jshint";
+
+      console.log('Applying \'' + mode + '\' to: ' + (fields.filename || 'anonymous'));
+
+      var results = lintify(mode, fields.source, fields.filename);
       res.writeHead(200, {'Content-Type': 'text/plain'});
       res.end(results);
     });
@@ -63,7 +73,7 @@ http.createServer(function(req, res) {
   }
 
   res.writeHead(200, {'Content-Type': 'text/plain'});
-  res.end("hey guys");
+  res.end("hello from jshint-mode");
 
 }).listen(port, host);
 

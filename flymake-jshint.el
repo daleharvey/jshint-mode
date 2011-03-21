@@ -17,7 +17,7 @@
   :type 'string
   :group 'flymake-jshint)
 
-(defcustom jshint-mode-location "~/.emacs.d/jshint-mode"
+(defcustom jshint-mode-location "~/lib/jshint-mode"
   "The directory jshint-mode.js may be found in."
   :type 'string
   :group 'flymake-jshint)
@@ -27,25 +27,47 @@
   :type 'integer
   :group 'flymake-jshint)
 
-;; doesnt currently work
-;; (defun jshint-mode-start ()
-;;   "Start the jshint-mode server.
-;; Uses `jshint-mode-node-program' and `jshint-mode-location'."
-;;   (interactive)
-;;   (start-process "jshint-mode-server" "*jshint-mode*"
-;;                  jshint-mode-node-program (concat jshint-mode-location "/jshint-mode.js")
-;;                  "--port" (number-to-string jshint-mode-port)))
+(defcustom jshint-mode-host "127.0.0.1"
+  "The host the jshint-mode server runs on."
+  :type 'string
+  :group 'flymake-jshint)
+
+(setq jshint-process "jshint-mode-server")
+(setq jshint-buffer "*jshint-mode*")
+
+(defun jshint-mode-init ()
+  "Start the jshint-mode server."
+  (interactive)
+  (if (eq (process-status jshint-process) 'run)
+      'started
+    (start-process
+     jshint-process
+     jshint-buffer
+     jshint-mode-node-program
+     (expand-file-name (concat jshint-mode-location "/jshint-mode.js"))
+     "--host" jshint-mode-host
+     "--port" (number-to-string jshint-mode-port))
+    (message
+     (concat "jshint server has started on " jshint-mode-host
+             (number-to-string jshint-mode-port)))
+    'starting
+    ))
+
+(defun jshint-mode-stop ()
+  "Stop the jshint-mode server."
+  (interactive)
+  (delete-process jshint-process))
 
 (defun flymake-jshint-init ()
-  (let* ((temp-file (flymake-init-create-temp-buffer-copy
-		     'flymake-create-temp-inplace))
-         (local-file (file-relative-name
-		      temp-file
-		      (file-name-directory buffer-file-name)))
-         (jshint-url (format "http://127.0.0.1:%d/jshint" jshint-mode-port)))
-    (list "curl" (list "--form" (format "source=<%s" local-file)
-                       "--form" (format "filename=%s" local-file)
-                       jshint-url))))
+  (if (eq (jshint-mode-init) 'started)
+      (let* ((temp-file (flymake-init-create-temp-buffer-copy 'flymake-create-temp-inplace))
+             (local-file (file-relative-name
+                          temp-file
+                          (file-name-directory buffer-file-name)))
+             (jshint-url (format "http://127.0.0.1:%d/jshint" jshint-mode-port)))
+        (list "curl" (list "--form" (format "source=<%s" local-file)
+                           "--form" (format "filename=%s" local-file)
+                           jshint-url)))))
 
 (setq flymake-allowed-file-name-masks
       (cons '(".+\\.js$"

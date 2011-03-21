@@ -23,6 +23,7 @@ function outputErrors(errors) {
 
   function out(s) {
     output.push(s + '\n');
+
   }
 
   for (i = 0; i < errors.length; i += 1) {
@@ -60,6 +61,9 @@ http.createServer(function(req, res) {
     });
     return;
   }
+
+  res.writeHead(200, {'Content-Type': 'text/plain'});
+  res.end("hey guys");
 
 }).listen(port, host);
 

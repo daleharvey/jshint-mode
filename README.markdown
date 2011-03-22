@@ -6,7 +6,7 @@ Integrate jshint into emacs via a node.js server, heavily inspited by Kevin Turn
 Dependencies
 ============
 
-node.js (http://nodejs.org/)
+node.js(http://nodejs.org/)
 
 Building
 ========

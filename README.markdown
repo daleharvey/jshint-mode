@@ -13,8 +13,7 @@ Building
 
 Install via npm
     $ npm install jshint-mode
-or download / clone
-    https://github.com/daleharvey/jshint-mode/tarball/master
+or you can [download](https://github.com/daleharvey/jshint-mode/tarball/master) or clone
     $ git clone git://github.com/daleharvey/jshint-mode.git
 
 Usage

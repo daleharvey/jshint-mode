@@ -1,12 +1,12 @@
 jshint-mode
 =======
 
-Integrate jshint into emacs via a node.js server, heavily inspited by Kevin Turners lintnode (https://github.com/keturn/lintnode) much thanks.
+Integrate jshint into emacs via a node.js server, heavily inspited by Kevin Turners [lintnode](https://github.com/keturn/lintnode) much thanks.
 
 Dependencies
 ============
 
-node.js(http://nodejs.org/)
+[node.js](http://nodejs.org/)
 
 Building
 ========

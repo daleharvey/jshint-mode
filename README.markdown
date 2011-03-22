@@ -11,23 +11,29 @@ node.js (http://nodejs.org/)
 Building
 ========
 
-Download
+Install via npm
+    $ npm install jshint-mode
+or download / clone
     https://github.com/daleharvey/jshint-mode/tarball/master
-or
     $ git clone git://github.com/daleharvey/jshint-mode.git
 
 Usage
 =====
 
-To run within emacs (add this to your .emacs) run M-x flymake-mode to turn jshint on and off
+If you installed via nmp you need to find the path that jshint was installed to:
 
-     (add-to-list 'load-path "~/path/to/jshint-mode")
-     (require 'flymake-jshint)
-     (add-hook 'javascript-mode-hook
+    $ npm explore jshint-mode
+    Exploring /usr/local/lib/node/.npm/jshint-mode/active/package
+
+Add this to your .emacs config file (if you didnt install via npm, replace the path):
+
+    (add-to-list 'load-path "/usr/local/lib/node/.npm/jshint-mode/active/package")
+    (require 'flymake-jshint)
+    (add-hook 'javascript-mode-hook
          (lambda () (flymake-mode t)))
 
-     ;; Turns on flymake for all files which have a flymake mode
-     (add-hook 'find-file-hook 'flymake-find-file-hook)
+    ;; Turns on flymake for all files which have a flymake mode
+    (add-hook 'find-file-hook 'flymake-find-file-hook)
 
 To run from the command line:
 

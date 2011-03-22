@@ -1,6 +1,6 @@
 {
     "name": "jshint-mode",
-    "version": "0.0.1",
+    "version": "0.0.2",
     "description": "JSHint",
     "homepage": "http://github.com/daleharvey/jshint-mode",
     "author": {
@@ -10,5 +10,6 @@
     "dependencies": {
         "formidable": ">=0.9.11"
     },
-    "engines": ["node >= 0.2.0"]
+    "engines": ["node >= 0.2.0"],
+    "bin": { "jshint-emacs-conf" : "./jshint-emacs.js" }
 }

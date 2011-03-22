@@ -19,17 +19,18 @@ or you can [download](https://github.com/daleharvey/jshint-mode/tarball/master) 
 Usage
 =====
 
-If you installed via [npm](http://npmjs.org/) you need to find the path that jshint was installed to:
+Add the configuration to your .emacs config file:
 
-    $ npm explore jshint-mode
-    Exploring /usr/local/lib/node/.npm/jshint-mode/active/package
+    $jshint-emacs-path >> ~/.emacs
 
-Add this to your .emacs config file (if you didnt install via npm, replace the path):
+or if you downloaded manually:
 
-    (add-to-list 'load-path "/usr/local/lib/node/.npm/jshint-mode/active/package")
+    (add-to-list 'load-path "~/path/to/jshint-mode")
     (require 'flymake-jshint)
     (add-hook 'javascript-mode-hook
          (lambda () (flymake-mode t)))
+
+You can use M-x flymake-mode to turn flymake of and on, if you want to turn it on be fault, add the following to your .emacs
 
     ;; Turns on flymake for all files which have a flymake mode
     (add-hook 'find-file-hook 'flymake-find-file-hook)

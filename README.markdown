@@ -11,7 +11,7 @@ Dependencies
 Building
 ========
 
-Install via npm
+Install via [npm](http://npmjs.org/)
     $ npm install jshint-mode
 or you can [download](https://github.com/daleharvey/jshint-mode/tarball/master) or clone
     $ git clone git://github.com/daleharvey/jshint-mode.git
@@ -19,7 +19,7 @@ or you can [download](https://github.com/daleharvey/jshint-mode/tarball/master) 
 Usage
 =====
 
-If you installed via nmp you need to find the path that jshint was installed to:
+If you installed via [npm](http://npmjs.org/) you need to find the path that jshint was installed to:
 
     $ npm explore jshint-mode
     Exploring /usr/local/lib/node/.npm/jshint-mode/active/package

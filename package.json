@@ -1,0 +1,14 @@
+{
+    "name": "jshint-mode",
+    "version": "0.0.1",
+    "description": "JSHint",
+    "homepage": "http://github.com/daleharvey/jshint-mode",
+    "author": {
+        "name": "Dale Harvey",
+        "url": "http://arandomurl.com/"
+    },
+    "dependencies": {
+        "formidable": ">=0.9.11"
+    },
+    "engines": ["node >= 0.2.0"]
+}

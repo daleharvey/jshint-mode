@@ -1,4 +1,3 @@
-/*jslint eqeqeq: true */
 /* HTTP interface to JSHint.
 
    curl --form source="<path/to/my.js" --form=filename="my.js" http://127.0.0.1:3003/jshint
@@ -13,6 +12,11 @@ var http = require('http'),
     formidable = require('formidable'),
     JSLINT = require('./jslint'),
     JSHINT = require('./jshint');
+
+var hinters = {
+  jshint: JSHINT.JSHINT,
+  jslint: JSLINT.JSLINT
+};
 
 function getOpt(key) {
   var index = process.ARGV.indexOf(key);
@@ -39,18 +43,9 @@ function outputErrors(errors) {
 }
 
 function lintify(mode, sourcedata, filename) {
-
-  var passed;
-
-  if (mode == "jshint") {
-    passed = JSHINT.JSHINT(sourcedata, {});
-    return passed ? "jshint: No problems found in " + filename + "\n"
-      : outputErrors(JSHINT.JSHINT.errors);
-  } else {
-    passed = JSLINT.JSLINT(sourcedata, {eqeqeq:true});
-    return passed ? "jslint: No problems found in " + filename + "\n"
-      : outputErrors(JSLINT.JSLINT.errors);
-  }
+  var passed = hinters[mode](sourcedata, {});
+  return passed ? "js: No problems found in " + filename + "\n"
+    : outputErrors(hinters[mode].errors);
 }
 
 var port = getOpt("--port") || 3003,
@@ -62,9 +57,7 @@ http.createServer(function(req, res) {
     var form = new formidable.IncomingForm();
     form.parse(req, function(err, fields, files) {
       var mode = (fields.mode && fields.mode == "jslint") ? "jslint" : "jshint";
-
       console.log('Applying \'' + mode + '\' to: ' + (fields.filename || 'anonymous'));
-
       var results = lintify(mode, fields.source, fields.filename);
       res.writeHead(200, {'Content-Type': 'text/plain'});
       res.end(results);

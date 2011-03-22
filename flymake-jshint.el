@@ -13,7 +13,7 @@
 (require 'flymake)
 
 (defcustom jshint-mode-mode "jshint"
-  "Can use eith jshint or jslint"
+  "Can use either jshint or jslint"
   :type 'string
   :group 'flymake-jshint)
 
@@ -22,7 +22,7 @@
   :type 'string
   :group 'flymake-jshint)
 
-(defcustom jshint-mode-location "~/lib/jshint-mode"
+(defcustom jshint-mode-location (file-name-directory load-file-name)
   "The directory jshint-mode.js may be found in."
   :type 'string
   :group 'flymake-jshint)
@@ -65,7 +65,6 @@
   (delete-process jshint-process))
 
 (defun flymake-jshint-init ()
-
   (if (eq (jshint-mode-init) 'started)
       (let* ((temp-file (flymake-init-create-temp-buffer-copy 'flymake-create-temp-inplace))
              (local-file (file-relative-name temp-file

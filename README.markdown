@@ -1,7 +1,9 @@
 jshint-mode
 =======
 
-Integrate jshint into emacs via a node.js server, heavily inspited by Kevin Turners [lintnode](https://github.com/keturn/lintnode) much thanks.
+Integrate [jshint](http://jshint.com) into emacs via a node.js server, heavily inspired by Kevin Turners [lintnode](https://github.com/keturn/lintnode) much thanks.
+
+![example](https://github.com/daleharvey/jshint-mode/raw/master/example.png)
 
 Dependencies
 ============
@@ -12,8 +14,11 @@ Building
 ========
 
 Install via [npm](http://npmjs.org/)
+
     $ npm install jshint-mode
+
 or you can [download](https://github.com/daleharvey/jshint-mode/tarball/master) or clone
+
     $ git clone git://github.com/daleharvey/jshint-mode.git
 
 Usage

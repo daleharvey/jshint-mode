@@ -1,14 +1,11 @@
 jshint-mode
 =======
 
-Integrate [jshint](http://jshint.com) into emacs via a node.js server, heavily inspired by Kevin Turners [lintnode](https://github.com/keturn/lintnode) much thanks.
+Integrate [JSHint](http://jshint.com) into Emacs via a [node.js](http://nodejs.org) server.
 
 ![example](https://github.com/daleharvey/jshint-mode/raw/master/example.png)
 
-Dependencies
-============
-
-[node.js](http://nodejs.org/)
+jshint-mode was heavily inspired by Kevin Turners [lintnode](https://github.com/keturn/lintnode).
 
 Building
 ========
@@ -39,8 +36,3 @@ You can use M-x flymake-mode to turn flymake of and on, if you want to turn it o
 
     ;; Turns on flymake for all files which have a flymake mode
     (add-hook 'find-file-hook 'flymake-find-file-hook)
-
-To run from the command line:
-
-    $ node jshint-mode.js
-    $ curl --form source="<path/to/my.js" --form=filename="my.js" http://127.0.0.1:3003/jshint

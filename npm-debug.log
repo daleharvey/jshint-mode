@@ -1,0 +1,24 @@
+info it worked if it ends with ok
+verbose cli [ 'node',
+verbose cli   '/usr/local/bin/npm',
+verbose cli   'explore',
+verbose cli   'jshint-mode' ]
+info using npm@1.0.18
+info using node@v0.4.10
+verbose /usr/local/bin/node node symlink
+verbose config file /Users/shuozi/.npmrc
+verbose config file /usr/local/etc/npmrc
+ERR! Error: It doesn't look like jshint-mode is installed.
+ERR!     at /usr/local/lib/node_modules/npm/lib/explore.js:23:43
+ERR!     at cb (/usr/local/lib/node_modules/npm/lib/utils/graceful-fs.js:31:9)
+ERR! Report this *entire* log at:
+ERR!     <http://github.com/isaacs/npm/issues>
+ERR! or email it to:
+ERR!     <npm-@googlegroups.com>
+ERR! 
+ERR! System Darwin 10.8.0
+ERR! command "node" "/usr/local/bin/npm" "explore" "jshint-mode"
+ERR! cwd /Users/shuozi/Downloads/GITHUB/jshint-mode
+ERR! node -v v0.4.10
+ERR! npm -v 1.0.18
+verbose exit [ 1, true ]

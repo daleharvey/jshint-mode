@@ -23,7 +23,13 @@ Usage
 
 Add the configuration to your .emacs config file:
 
-    $jshint-emacs-path >> ~/.emacs
+    $jshint-emacs-path >> ~/.emacs  // or
+	$npm explore jshint-mode
+	Exploring /Users/yourname/node_modules/jshint-mode
+	Type 'exit' or ^D when finished
+
+	bash-3.2$ exit
+
 
 or if you downloaded manually:
 
@@ -31,6 +37,15 @@ or if you downloaded manually:
     (require 'flymake-jshint)
     (add-hook 'javascript-mode-hook
          (lambda () (flymake-mode t)))
+
+**Becareful**: If you emacs can't find node program, maybe you should add some config to .emacs like this:
+
+	(setenv "PATH" (concat "/usr/local/bin:" (getenv "PATH")))
+	(setq exec-path
+	      '(
+		"/usr/local/bin"
+		"/usr/bin"
+		))
 
 You can use M-x flymake-mode to turn flymake of and on, if you want to turn it on be fault, add the following to your .emacs
 

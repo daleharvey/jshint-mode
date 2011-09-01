@@ -1,9 +1,13 @@
+;;; jshint-mode.el --- JSHint mode for Emacs
+;;
+;; Version: 20110901
+;;
 ;; adapted from http://www.emacswiki.org/emacs/FlymakeJavaScript
 ;;
 ;; Installation:
 ;;
 ;;     (add-to-list 'load-path "~/lib/jshint-mode")
-;;     (require 'flymake-jshint)
+;;     (require 'jshint-mode)
 ;;     (add-hook 'javascript-mode-hook
 ;;         (lambda () (flymake-mode t)))
 ;;
@@ -15,27 +19,27 @@
 (defcustom jshint-mode-mode "jshint"
   "Can use either jshint or jslint"
   :type 'string
-  :group 'flymake-jshint)
+  :group 'jshint-mode)
 
 (defcustom jshint-mode-node-program "node"
   "The program name to invoke node.js."
   :type 'string
-  :group 'flymake-jshint)
+  :group 'jshint-mode)
 
 (defcustom jshint-mode-location (file-name-directory load-file-name)
   "The directory jshint-mode.js may be found in."
   :type 'string
-  :group 'flymake-jshint)
+  :group 'jshint-mode)
 
 (defcustom jshint-mode-port 3003
   "The port the jshint-mode server runs on."
   :type 'integer
-  :group 'flymake-jshint)
+  :group 'jshint-mode)
 
 (defcustom jshint-mode-host "127.0.0.1"
   "The host the jshint-mode server runs on."
   :type 'string
-  :group 'flymake-jshint)
+  :group 'jshint-mode)
 
 (setq jshint-process "jshint-mode-server")
 (setq jshint-buffer "*jshint-mode*")
@@ -87,4 +91,6 @@
 	      nil 1 2 3)
 	    flymake-err-line-patterns))
 
-(provide 'flymake-jshint)
+(provide 'jshint-mode)
+
+;;; jshint-mode.el ends here

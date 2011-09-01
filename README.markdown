@@ -7,6 +7,13 @@ Integrate [JSHint](http://jshint.com) into Emacs via a [node.js](http://nodejs.o
 
 jshint-mode was heavily inspired by Kevin Turners [lintnode](https://github.com/keturn/lintnode).
 
+Dependency
+========
+
+Install *formidable* via npm:
+
+    $ npm install formidable
+
 Building
 ========
 

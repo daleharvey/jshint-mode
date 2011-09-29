@@ -7,6 +7,17 @@ Integrate [JSHint](http://jshint.com) into Emacs via a [node.js](http://nodejs.o
 
 jshint-mode was heavily inspired by Kevin Turners [lintnode](https://github.com/keturn/lintnode).
 
+Dependencies
+========
+
+ * nodejs - http://nodejs.org
+ * npmjs - http://npmjs.org
+ * formidable
+
+Install *formidable* via npm:
+
+    $ npm install formidable
+
 Building
 ========
 
@@ -36,3 +47,11 @@ You can use M-x flymake-mode to turn flymake of and on, if you want to turn it o
 
     ;; Turns on flymake for all files which have a flymake mode
     (add-hook 'find-file-hook 'flymake-find-file-hook)
+
+Note to Emacs.app users
+=======================
+
+If use Emacs.app on OS X, you need to set the following environment variables:
+
+  * PATH - Add path to your *node* executable
+  * NODE_PATH - Add path to where your node_modules are located so node can find the  *formidable* module

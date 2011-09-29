@@ -1,3 +1,7 @@
+;;; flymake-jshint.el --- JSHint mode for Emacs
+;;
+;; Version: 20110901
+;;
 ;; adapted from http://www.emacswiki.org/emacs/FlymakeJavaScript
 ;;
 ;; Installation:
@@ -54,7 +58,7 @@
      "--port" (number-to-string jshint-mode-port))
     (set-process-query-on-exit-flag (get-process jshint-process) nil)
     (message
-     (concat "jshint server has started on " jshint-mode-host
+     (concat "jshint server has started on " jshint-mode-host ":"
              (number-to-string jshint-mode-port)))
     'starting
     ))
@@ -88,3 +92,5 @@
 	    flymake-err-line-patterns))
 
 (provide 'flymake-jshint)
+
+;;; flymake-jshint.el ends here

@@ -34,7 +34,7 @@ Usage
 
 Add the configuration to your .emacs config file:
 
-    $jshint-emacs-path >> ~/.emacs  // or
+    $jshint-emacs-conf >> ~/.emacs  // or
 	$npm explore jshint-mode
 	Exploring /Users/yourname/node_modules/jshint-mode
 	Type 'exit' or ^D when finished

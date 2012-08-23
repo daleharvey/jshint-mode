@@ -20,8 +20,8 @@ var hinters = {
 };
 
 function getOpt(key) {
-  var index = process.ARGV.indexOf(key);
-  return index !== -1 ? process.ARGV[index + 1] : false;
+  var index = process.argv.indexOf(key);
+  return index !== -1 ? process.argv[index + 1] : false;
 }
 
 function outputErrors(errors) {

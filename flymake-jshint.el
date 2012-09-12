@@ -41,6 +41,11 @@
   :type 'string
   :group 'flymake-jshint)
 
+(defcustom jshint-mode-jshintrc ""
+  "Location for the jshintrc file."
+  :type 'string
+  :group 'flymake-jshint)
+
 (setq jshint-process "jshint-mode-server")
 (setq jshint-buffer "*jshint-mode*")
 
@@ -77,6 +82,7 @@
         (list "curl" (list "--form" (format "source=<%s" local-file)
                            "--form" (format "filename=%s" local-file)
                            "--form" (format "mode=%s" jshint-mode-mode)
+                           "--form" (format "jshintrc=%s" jshint-mode-jshintrc)
                            jshint-url)))))
 
 (setq flymake-allowed-file-name-masks

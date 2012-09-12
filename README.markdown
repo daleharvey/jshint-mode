@@ -12,20 +12,11 @@ Dependencies
 
  * nodejs - http://nodejs.org
  * npmjs - http://npmjs.org
- * formidable
-
-Install *formidable* via npm:
-
-    $ npm install formidable
 
 Building
 ========
 
-Install via [npm](http://npmjs.org/)
-
-    $ npm install jshint-mode
-
-or you can [download](https://github.com/daleharvey/jshint-mode/tarball/master) or clone
+[download](https://github.com/daleharvey/jshint-mode/tarball/master) or clone
 
     $ git clone git://github.com/daleharvey/jshint-mode.git
 
@@ -69,4 +60,3 @@ Note to Emacs.app users
 If use Emacs.app on OS X, you need to set the following environment variables:
 
   * PATH - Add path to your *node* executable
-  * NODE_PATH - Add path to where your node_modules are located so node can find the  *formidable* module

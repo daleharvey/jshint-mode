@@ -42,7 +42,7 @@
   :group 'flymake-jshint)
 
 (defcustom jshint-mode-jshintrc ""
-  "Location for the jshintrc file."
+  "Location for the jshintrc file. If empty, a file named `.jshintrc` will be looked up first from the directory of the file being checked and continue up the directory hierarchy until the file is found. If no such file is found, the user's home directory is tried."
   :type 'string
   :group 'flymake-jshint)
 
@@ -73,6 +73,28 @@
   (interactive)
   (delete-process jshint-process))
 
+(defun jshint-find-jshintrc-recursively (path)
+  (cond ((and (string= path "/.jshintrc")
+              (file-exists-p path)) path)
+        ((and (string= path "/.jshintrc")
+              (not (file-exists-p path))) nil)
+        ((file-exists-p (expand-file-name path)) path)
+        ((jshint-find-jshintrc-recursively (concat (file-name-directory (directory-file-name (file-name-directory path))) ".jshintrc")))))
+
+(defun jshint-find-jshintrc-from-current-dir ()
+  (jshint-find-jshintrc-recursively (concat (file-name-directory buffer-file-name) ".jshintrc")))
+
+(defun jshint-find-jshintrc-from-home ()
+  (let ((homerc (concat (expand-file-name (getenv "HOME")) ".jshintrc")))
+    (if (file-exists-p homerc)
+        homerc
+      nil)))
+
+(defun jshint-find-jshintrc ()
+  (if (string= jshint-mode-jshintrc "")
+      (or (jshint-find-jshintrc-from-current-dir) (jshint-find-jshintrc-from-home) "")
+    jshint-mode-jshintrc))
+
 (defun flymake-jshint-init ()
   (if (eq (jshint-mode-init) 'started)
       (let* ((temp-file (flymake-init-create-temp-buffer-copy 'flymake-create-temp-inplace))
@@ -82,7 +104,7 @@
         (list "curl" (list "--form" (format "source=<%s" local-file)
                            "--form" (format "filename=%s" local-file)
                            "--form" (format "mode=%s" jshint-mode-mode)
-                           "--form" (format "jshintrc=%s" jshint-mode-jshintrc)
+                           "--form" (format "jshintrc=%s" (jshint-find-jshintrc))
                            jshint-url)))))
 
 (setq flymake-allowed-file-name-masks

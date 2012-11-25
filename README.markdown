@@ -54,6 +54,13 @@ You can use M-x flymake-mode to turn flymake of and on, if you want to turn it o
     ;; Turns on flymake for all files which have a flymake mode
     (add-hook 'find-file-hook 'flymake-find-file-hook)
 
+Flymake displays an overlay when hovering the mouse over the highlighted line. If you want to see the messages in the status
+buffer at the bottom of the emacs window you can set the following variables in your .emacs:
+
+    ;; Show error/warning message in status buffer
+    (custom-set-variables '(help-at-pt-timer-delay 0.5) '(help-at-pt-display-when-idle '(flymake-overlay)))
+
+
 Note to Emacs.app users
 =======================
 

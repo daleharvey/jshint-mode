@@ -71,11 +71,10 @@ function _loadAndParseConfig(filePath) {
 }
 
 function _getConfig(filePath) {
-  if (config[filePath]) {
-    return config[filePath];
-  }else{
-    return config[filePath] = _loadAndParseConfig(filePath);
+  if (!config[filePath]) {
+    config[filePath] = _loadAndParseConfig(filePath);
   }
+  return config[filePath];
 }
 
 var port = getOpt("--port") || 3003,

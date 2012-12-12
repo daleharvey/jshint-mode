@@ -78,11 +78,16 @@
       (let* ((temp-file (flymake-init-create-temp-buffer-copy 'flymake-create-temp-inplace))
              (local-file (file-relative-name temp-file
                                              (file-name-directory buffer-file-name)))
-             (jshint-url (format "http://%s:%d/check" jshint-mode-host jshint-mode-port)))
+             (jshint-url (format "http://%s:%d/check" jshint-mode-host jshint-mode-port))
+             (jshintrc (if (string= "" jshint-mode-jshintrc)
+                           (expand-file-name
+                            ".jshintrc"
+                            (locate-dominating-file default-directory ".jshintrc"))
+                         jshint-mode-jshintrc)))
         (list "curl" (list "--form" (format "source=<%s" local-file)
                            "--form" (format "filename=%s" local-file)
                            "--form" (format "mode=%s" jshint-mode-mode)
-                           "--form" (format "jshintrc=%s" jshint-mode-jshintrc)
+                           "--form" (format "jshintrc=%s" jshintrc)
                            jshint-url)))))
 
 (setq flymake-allowed-file-name-masks

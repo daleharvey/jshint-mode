@@ -42,7 +42,7 @@
   :group 'flymake-jshint)
 
 (defcustom jshint-mode-jshintrc ""
-  "Location for the jshintrc file."
+  "Location for the jshintrc file. If not set, looks up directory tree from each JS file."
   :type 'string
   :group 'flymake-jshint)
 

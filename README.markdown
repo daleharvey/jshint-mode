@@ -54,6 +54,18 @@ You can use M-x flymake-mode to turn flymake of and on, if you want to turn it o
     ;; Turns on flymake for all files which have a flymake mode
     (add-hook 'find-file-hook 'flymake-find-file-hook)
 
+
+Using .jshintrc
+---------------
+
+By default, jshint-mode will search for the nearest `.jshintrc` file up the
+directory tree from the location of each JS file you edit.
+
+Alternatively, you can customize the `jshint-mode-jshintrc` variable to set the
+location of a `.jshintrc` file that will always be used (and will be the only
+one used).
+
+
 Note to Emacs.app users
 =======================
 

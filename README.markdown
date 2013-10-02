@@ -25,7 +25,7 @@ Usage
 
 Add the configuration to your .emacs config file:
 
-    $jshint-emacs-conf >> ~/.emacs  // or
+    $./jshint-emacs >> ~/.emacs  // or
 	$npm explore jshint-mode
 	Exploring /Users/yourname/node_modules/jshint-mode
 	Type 'exit' or ^D when finished

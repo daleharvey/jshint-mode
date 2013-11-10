@@ -46,6 +46,16 @@
   :type 'string
   :group 'flymake-jshint)
 
+(defcustom jshint-mode-jshint-path ""
+  "Require path for the jshint module to be used by the server. If not set, uses flymake-jshint's bundled jshint."
+  :type 'string
+  :group 'flymake-jshint)
+
+(defcustom jshint-mode-jslint-path ""
+  "Require path for the jslint module to be used by the server. If not set, uses flymake-jshint's bundled jslint."
+  :type 'string
+  :group 'flymake-jshint)
+
 (setq jshint-process "jshint-mode-server")
 (setq jshint-buffer "*jshint-mode*")
 
@@ -60,7 +70,9 @@
      jshint-mode-node-program
      (expand-file-name (concat jshint-mode-location "/jshint-mode.js"))
      "--host" jshint-mode-host
-     "--port" (number-to-string jshint-mode-port))
+     "--port" (number-to-string jshint-mode-port)
+     "--jshint" jshint-mode-jshint-path
+     "--jslint" jshint-mode-jslint-path)
     (set-process-query-on-exit-flag (get-process jshint-process) nil)
     (message
      (concat "jshint server has started on " jshint-mode-host ":"

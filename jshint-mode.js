@@ -8,21 +8,23 @@
     speed up
 */
 
-var http = require('http'),
+var JSLINT, JSHINT,
+    http = require('http'),
     formidable = require('formidable'),
-    fs = require('fs'),
-    JSLINT = require('./jslint'),
-    JSHINT = require('./jshint');
-
-var hinters = {
-  jshint: JSHINT.JSHINT,
-  jslint: JSLINT.JSLINT
-};
+    fs = require('fs');
 
 function getOpt(key) {
   var index = process.argv.indexOf(key);
   return index !== -1 ? process.argv[index + 1] : false;
 }
+
+JSLINT = require(getOpt('--jslint') || './jslint');
+JSHINT = require(getOpt('--jshint') || './jshint');
+
+var hinters = {
+  jshint: JSHINT.JSHINT,
+  jslint: JSLINT.JSLINT
+};
 
 function outputErrors(errors) {
 

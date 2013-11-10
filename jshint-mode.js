@@ -70,12 +70,19 @@ function _loadAndParseConfig(filePath) {
     JSON.parse(_removeJsComments(fs.readFileSync(filePath, "utf-8"))) : {};
 }
 
+function _setConfig(filePath) {
+  config[filePath] = _loadAndParseConfig(filePath);
+}
+
 function _getConfig(filePath) {
-  if (config[filePath]) {
-    return config[filePath];
-  }else{
-    return config[filePath] = _loadAndParseConfig(filePath);
+  if (!config[filePath]) {
+    fs.watch(filePath, function(){
+      _setConfig(filePath);
+    });
+    _setConfig(filePath);
   }
+
+  return config[filePath];
 }
 
 var port = getOpt("--port") || 3003,

@@ -46,7 +46,8 @@ function outputErrors(errors) {
 }
 
 function lintify(mode, sourcedata, filename, config) {
-  var passed = hinters[mode](sourcedata, config);
+  var globals = config.globals;
+  var passed = hinters[mode](sourcedata, config, globals);
   return passed ? "js: No problems found in " + filename + "\n"
     : outputErrors(hinters[mode].errors);
 }

@@ -65,6 +65,25 @@ Alternatively, you can customize the `jshint-mode-jshintrc` variable to set the
 location of a `.jshintrc` file that will always be used (and will be the only
 one used).
 
+Custom installations of jshint/jslint
+-------------------------------------
+
+You can use `jshint-mode-jshint-path`/`jshint-mode-jslint-path` to set
+the require path for the jshint module.
+
+For the global installation of jshint, you can set
+`jshint-mode-jshint-path` to "jshint"
+
+    (setq jshint-mode-jshint-path "jshint")
+
+Or for other installations you can point to the corresponding library
+via the absolute path. Eg:
+
+    (setq jshint-mode-jshint-path
+     "/home/rohan/.local/lib/node_modules/jshint/src/jshint.js")
+
+By default, `jshint-mode` will use the bundled snapshots the linting
+tools.
 
 Note to Emacs.app users
 =======================

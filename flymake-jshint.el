@@ -31,6 +31,11 @@
   :type 'string
   :group 'flymake-jshint)
 
+(defcustom jshint-mode-create-temp-helper 'flymake-create-temp-inplace
+  "Function used to create a temporary file for running jshint."
+  :type 'string
+  :group 'flymake-jshint)
+
 (defcustom jshint-mode-port 3003
   "The port the jshint-mode server runs on."
   :type 'integer
@@ -75,7 +80,7 @@
 
 (defun flymake-jshint-init ()
   (if (eq (jshint-mode-init) 'started)
-      (let* ((temp-file (flymake-init-create-temp-buffer-copy 'flymake-create-temp-inplace))
+      (let* ((temp-file (flymake-init-create-temp-buffer-copy jshint-mode-create-temp-helper))
              (local-file (file-relative-name temp-file
                                              (file-name-directory buffer-file-name)))
              (jshint-url (format "http://%s:%d/check" jshint-mode-host jshint-mode-port))

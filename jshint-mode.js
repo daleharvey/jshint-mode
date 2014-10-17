@@ -14,6 +14,10 @@ var http = require('http'),
     JSLINT = require('./jslint'),
     JSHINT = require('./jshint');
 
+if (!fs.existsSync) {
+  fs.existsSync = require('path').existsSync;
+}
+
 var hinters = {
   jshint: JSHINT.JSHINT,
   jslint: JSLINT.JSLINT

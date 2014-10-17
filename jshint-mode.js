@@ -82,11 +82,12 @@ function _getConfig(filePath) {
   }
 }
 
-var port = getOpt("--port") || 3003,
+var port = parseInt(getOpt("--port"), 10) || 3003,
+lastPort = parseInt(getOpt("--lastport"),10) || 3003,
     host = getOpt("--host") || "127.0.0.1",
     config = {};
 
-http.createServer(function(req, res) {
+var server = http.createServer(function(req, res) {
   if (req.url === '/check' && req.method.toUpperCase() === 'POST') {
     var form = new formidable.IncomingForm();
     form.parse(req, function(err, fields, files) {
@@ -106,6 +107,22 @@ http.createServer(function(req, res) {
   res.writeHead(200, {'Content-Type': 'text/plain'});
   res.end("hello from jshint-mode");
 
-}).listen(port, host);
+});
 
-console.log('Started JSHint server at http:// ' + host + ':' + port);
+server.on('listening', function () {
+  console.log('Started JSHint server at http://' + host + ':' + port + '.');
+});
+
+server.on('error', function (err) {
+  if (err.errno === "EADDRINUSE") {
+    if (port >= lastPort) {
+      console.error("Error occurred during '" + err.syscall + "':", err.code);
+      process.exit(2);
+    } else {
+      // find the next available port
+      port += 1;
+      server.listen(port, host);
+    }
+  }
+});
+server.listen(port, host);

@@ -124,7 +124,7 @@
                            jshint-url)))))
 
 (setq flymake-allowed-file-name-masks
-      (cons '(".+\\.js$"
+      (cons '(".+\\.js\\(\\.in\\)?$"
 	      flymake-jshint-init
 	      flymake-simple-cleanup
 	      flymake-get-real-file-name)

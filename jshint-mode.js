@@ -28,7 +28,7 @@ function getOpt(key) {
   return index !== -1 ? process.argv[index + 1] : false;
 }
 
-function outputErrors(errors) {
+function outputErrors(errors, showCode) {
 
   var e, i, output = [];
 
@@ -40,17 +40,19 @@ function outputErrors(errors) {
     e = errors[i];
     if (e) {
       out('Lint at line ' + e.line + ' character ' + e.character + ': ' + e.reason);
-      out((e.evidence || '').replace(/^\s*(\S*(\s+\S+)*)\s*$/, "$1"));
-      out('');
+      if (showCode) {
+	out((e.evidence || '').replace(/^\s*(\S*(\s+\S+)*)\s*$/, "$1"));
+	out('');
+      }
     }
   }
   return output.join('');
 }
 
-function lintify(mode, sourcedata, filename, config) {
+function lintify(mode, sourcedata, filename, showCode, config) {
   var passed = hinters[mode](sourcedata, config);
   return passed ? "js: No problems found in " + filename + "\n"
-    : outputErrors(hinters[mode].errors);
+    : outputErrors(hinters[mode].errors, showCode);
 }
 
 // This is copied from jshint mode, that's how they load the config file
@@ -92,13 +94,13 @@ var server = http.createServer(function(req, res) {
     var form = new formidable.IncomingForm();
     form.parse(req, function(err, fields, files) {
       var mode = (fields.mode && fields.mode == "jslint") ? "jslint" : "jshint";
-
+      var showCode = (fields.showCode && fields.showCode === "1") ? true : false;
       var now = new Date().getTime();
       console.log('Applying \'' + mode + '\' to: ' + (fields.filename || 'anonymous'));
 
       var config = _getConfig(fields.jshintrc);
 
-      var results = lintify(mode, fields.source, fields.filename, config);
+      var results = lintify(mode, fields.source, fields.filename, showCode, config);
       console.log('Took ' + (new Date().getTime() - now) + 'ms to lint ' + (fields.filename || 'anonymous'));
       res.writeHead(200, {'Content-Type': 'text/plain'});
       res.end(results);

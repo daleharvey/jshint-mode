@@ -1,6 +1,37 @@
 /* HTTP interface to JSHint.
 
-   curl --form source="<path/to/my.js" --form=filename="my.js" http://127.0.0.1:3003/jshint
+   curl --form source="<path/to/my.js" --form=filename="my.js" --form mode=jshint --form showCode=1 http://127.0.0.1:3003/check
+
+    POST parameters:
+
+      source the contents of the file (the < is a curl construct which
+             inlines the contents of the file in the param).
+
+      filename is the name of that file
+
+      mode     The linter to use. 'jshint' or 'jslint' (default jshint).
+
+      showCode Whether to include source code evidence with the
+               errors. '0' or '1' (default '0'). Not including error
+               content speeds up flymake parsing and operation.
+
+   CLI Usage:
+        jshint-mode.js  --host HOST --port PORT --lastport LASTPORT
+
+        Start listening at address HOST. The first port between PORT
+	and LASTPORT is used for listening (default 3003-3003). The
+	chosen port is printed on stdout on the first line output.
+
+	Dynamic ports are needed when the server is started by emacs
+	flymake. Multiple emacs processes can use the same server
+	endpoint, but the server is shut down when one window is
+	closed. By allowing each flymake process to start its own
+	server on a different port, cleanup of one window does not
+	interfere with another's.
+
+	Example output indicating address and port:
+
+        'Started JSHint server at http://127.0.0.1:3003'
 
   TODO:
     parse incoming source files for embedded jshint options

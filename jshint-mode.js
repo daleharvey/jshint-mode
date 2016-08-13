@@ -93,11 +93,13 @@ var server = http.createServer(function(req, res) {
     form.parse(req, function(err, fields, files) {
       var mode = (fields.mode && fields.mode == "jslint") ? "jslint" : "jshint";
 
+      var now = new Date().getTime();
       console.log('Applying \'' + mode + '\' to: ' + (fields.filename || 'anonymous'));
 
       var config = _getConfig(fields.jshintrc);
 
       var results = lintify(mode, fields.source, fields.filename, config);
+      console.log('Took ' + (new Date().getTime() - now) + 'ms to lint ' + (fields.filename || 'anonymous'));
       res.writeHead(200, {'Content-Type': 'text/plain'});
       res.end(results);
     });
